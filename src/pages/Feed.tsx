@@ -6,25 +6,23 @@ import "./feed.css"
 const Feed = () => {
   //keeping track of an array type photo
   const [getPhotos, setPhotos] = useState<Photo[]>([])
-  useEffect(
+  useEffect(() => {
     // pull the ig-clone-backend photos form localhost:4312
-    () => {
-      fetch("http://localhost:4312/photos")
-        .then((res) => res.json())
-        .then((photosReply: Photo[]) => {
-          setPhotos(photosReply)
-        })
-    },
-    []
-  )
+    fetch("http://localhost:4312/photos")
+      .then((res) => res.json())
+      .then((photosReply: Photo[]) => {
+        setPhotos(photosReply)
+      })
+  }, [])
 
   return (
     <>
       <h1>The bear</h1>
       <div>
-        {getPhotos.map((getPhotos: Photo) => {
-          return <PhotoView key={getPhotos._id} photo={getPhotos} />
-
+        {getPhotos.map((photos: Photo) => {
+          return (
+            <PhotoView key={photos._id} photo={photos} setPhotos={setPhotos} />
+          )
         })}
       </div>
     </>
